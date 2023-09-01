@@ -20,7 +20,7 @@ env:
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 jobs:
   test-and-publish:
-    if: github.repository == 'TanStack/store' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/alpha' || github.ref == 'refs/heads/beta')
+    # if: github.repository == 'TanStack/store' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/alpha' || github.ref == 'refs/heads/beta')
     name: 'Test & Publish'
     runs-on: ubuntu-latest
     steps:
@@ -43,12 +43,12 @@ jobs:
           command: pnpm run test:ci -- --base=${{ github.event.before }}
           timeout_minutes: 10
           max_attempts: 3
-      - name: Publish
-        run: |
-          git config --global user.name 'Tanner Linsley'
-          git config --global user.email 'tannerlinsley@users.noreply.github.com'
-          npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
-          pnpm run cipublish
+      # - name: Publish
+      #   run: |
+      #     git config --global user.name 'Tanner Linsley'
+      #     git config --global user.email 'tannerlinsley@users.noreply.github.com'
+      #     npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
+      #     pnpm run cipublish
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
